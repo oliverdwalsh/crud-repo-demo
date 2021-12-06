@@ -1,0 +1,32 @@
+#Application
+application:
+  name: crud-repo-demo
+#Server properties
+server:
+  port: 8081
+  servlet:
+    contextPath: /${application.name}
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#Spring Properties
+spring:
+  application:
+    name: ${application.name}
+  security:
+    username: user
+    password: password
+  datasource:
+    username: ${aws.rds.username}
+    password: ${aws.rds.password}
+    url: jdbc:mysql://${aws.rds.connection}:3306/cloudDemo?username=${aws.rds.username}&password=${aws.rds.password}
+    driverClassName: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    database-platform: org.hibernate.dialect.MySQL8Dialect
+  config:
+    import: optional:configserver:${CONFIG_SERVER_URL}
+
